@@ -1,0 +1,38 @@
+[
+  {
+    "id": "future-tech-summit",
+    "title": "Future Tech Summit",
+    "date": "2026-10-16",
+    "location": "San Francisco, CA",
+    "summary": "A global conference exploring AI innovation, digital strategy, and sustainable business transformation.",
+    "speakers": ["amelia-clark", "noah-wong"],
+    "agenda": [
+      { "time": "09:00", "title": "Opening keynote", "description": "Welcome and future trends." },
+      { "time": "10:30", "title": "AI in product", "description": "AI-powered product development." },
+      { "time": "14:00", "title": "Growth strategies", "description": "Scaling digital teams with confidence." }
+    ],
+    "venue": {
+      "name": "Civic Innovation Center",
+      "address": "125 Market Street, San Francisco, CA",
+      "mapUrl": "https://maps.google.com"
+    }
+  },
+  {
+    "id": "design-leadership-forum",
+    "title": "Design Leadership Forum",
+    "date": "2026-11-21",
+    "location": "Austin, TX",
+    "summary": "An event for design leaders, product strategists, and experience teams to share their most effective practices.",
+    "speakers": ["sofia-patel", "lucas-fernandez"],
+    "agenda": [
+      { "time": "09:30", "title": "Design systems", "description": "Building accessible product foundations." },
+      { "time": "11:00", "title": "Customer research", "description": "Translating insights into growth." },
+      { "time": "15:00", "title": "Closing panel", "description": "Leadership lessons from top teams." }
+    ],
+    "venue": {
+      "name": "Bright House Auditorium",
+      "address": "832 East 6th Street, Austin, TX",
+      "mapUrl": "https://maps.google.com"
+    }
+  }
+]
