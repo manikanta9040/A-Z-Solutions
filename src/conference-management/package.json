@@ -1,0 +1,17 @@
+{
+  "name": "conference-management",
+  "private": true,
+  "workspaces": [
+    "client",
+    "server"
+  ],
+  "scripts": {
+    "dev": "concurrently \"npm:start --workspace client\" \"npm:start --workspace server\"",
+    "start": "npm run dev",
+    "client": "npm --workspace client start",
+    "server": "npm --workspace server start"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}
