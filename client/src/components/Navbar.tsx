@@ -9,6 +9,7 @@ const navItems = [
   { label: 'Committee', path: '/committee' },
   { label: 'Blog', path: '/blog' },
   { label: 'Contact', path: '/contact' },
+  { label: 'Admin', path: '/admin/login' },
 ]
 
 const Navbar = () => {
@@ -30,10 +31,10 @@ const Navbar = () => {
       <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 lg:px-8">
         <Link to="/" className="flex items-center gap-3 text-lg font-semibold tracking-wide text-white">
           <span className="inline-flex h-10 w-10 items-center justify-center rounded-2xl bg-gradient-to-br from-accent to-sky-500 text-xl shadow-card">
-            S
+            A-Z
           </span>
           <span>
-            Summit<span className="text-gold">Sphere</span>
+            A-Z <span className="text-gold">SOLUTIONS</span>
           </span>
         </Link>
 

@@ -4,7 +4,7 @@ const Footer = () => (
   <footer className="border-t border-slate-800 bg-slate-950/95 pt-16 pb-10 text-slate-400">
     <div className="mx-auto grid max-w-7xl gap-10 px-6 sm:grid-cols-2 lg:grid-cols-4 lg:px-8">
       <div className="space-y-4">
-        <h3 className="text-lg font-semibold text-white">SummitSphere</h3>
+        <h3 className="text-lg font-semibold text-white">A-Z SOLUTIONS</h3>
         <p className="max-w-xs text-sm leading-6 text-slate-400">
           A premium conference experience designed for professional events, scientific gatherings, and executive summits.
         </p>
@@ -55,7 +55,7 @@ const Footer = () => (
     </div>
 
     <div className="mt-10 border-t border-slate-800 pt-6 text-center text-sm text-slate-500">
-      © 2026 SummitSphere. Crafted for modern conference experiences.
+      © 2026 A-Z SOLUTIONS. Crafted for modern conference experiences.
     </div>
   </footer>
 )

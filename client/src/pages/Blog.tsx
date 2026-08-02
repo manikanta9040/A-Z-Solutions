@@ -2,7 +2,7 @@ const Blog = () => (
   <section className="mx-auto max-w-6xl px-6 py-20 lg:px-8">
     <div className="mb-10 text-center">
       <p className="text-sm uppercase tracking-[0.32em] text-gold">Insights and news</p>
-      <h1 className="mt-4 text-4xl font-semibold text-white">The latest from SummitSphere</h1>
+      <h1 className="mt-4 text-4xl font-semibold text-white">The latest from A-Z SOLUTIONS</h1>
       <p className="mt-4 text-slate-400">Explore event highlights, speaker announcements, and conference strategy articles.</p>
     </div>
     <div className="grid gap-6 lg:grid-cols-3">

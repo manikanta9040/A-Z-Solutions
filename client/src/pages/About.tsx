@@ -1,7 +1,7 @@
 const About = () => (
   <section className="mx-auto max-w-6xl px-6 py-20 lg:px-8">
     <div className="mb-10 text-center">
-      <p className="text-sm uppercase tracking-[0.32em] text-gold">About SummitSphere</p>
+      <p className="text-sm uppercase tracking-[0.32em] text-gold">About A-Z SOLUTIONS</p>
       <h1 className="mt-4 text-4xl font-semibold text-white">A premium conference experience built for modern leaders.</h1>
       <p className="mt-4 text-slate-400">We craft elegant event journeys that combine scientific rigor, executive presence, and high-value networking.</p>
     </div>

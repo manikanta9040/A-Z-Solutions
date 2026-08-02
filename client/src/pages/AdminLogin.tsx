@@ -8,6 +8,7 @@ const AdminLogin = () => {
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault()
+    if (!email.trim() || !password.trim()) return
     localStorage.setItem('adminToken', 'demo-admin-token')
     navigate('/admin/dashboard')
   }
@@ -22,8 +23,8 @@ const AdminLogin = () => {
         </div>
         <form onSubmit={handleSubmit} className="flex-1 rounded-[2rem] border border-slate-800 bg-slate-950/90 p-8 shadow-card">
           <div className="space-y-5">
-            <input value={email} onChange={(event) => setEmail(event.target.value)} type="email" placeholder="Email address" className="w-full rounded-2xl border border-slate-800 bg-slate-900/80 px-5 py-4 outline-none" />
-            <input value={password} onChange={(event) => setPassword(event.target.value)} type="password" placeholder="Password" className="w-full rounded-2xl border border-slate-800 bg-slate-900/80 px-5 py-4 outline-none" />
+            <input value={email} onChange={(event) => setEmail(event.target.value)} type="text" placeholder="Admin ID or email" required className="w-full rounded-2xl border border-slate-800 bg-slate-900/80 px-5 py-4 outline-none" />
+            <input value={password} onChange={(event) => setPassword(event.target.value)} type="password" placeholder="Password" required className="w-full rounded-2xl border border-slate-800 bg-slate-900/80 px-5 py-4 outline-none" />
             <button type="submit" className="w-full rounded-2xl bg-gold px-5 py-4 font-semibold text-slate-950 transition hover:bg-[#dba11a]">Login</button>
           </div>
         </form>
