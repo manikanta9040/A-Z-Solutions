@@ -23,7 +23,7 @@ const stats = [
 ]
 
 const Home = () => {
-  const { data: conferences, loading } = useConferences()
+  const { data: conferences, loading, error } = useConferences()
 
   return (
     <div className="overflow-hidden">
@@ -39,6 +39,10 @@ const Home = () => {
         </div>
         {loading ? (
           <div className="rounded-[2rem] border border-slate-800 bg-slate-950/90 p-8 text-slate-400">Loading featured conferences...</div>
+        ) : error ? (
+          <div className="rounded-[2rem] border border-red-500/40 bg-red-500/10 p-8 text-red-200">Unable to load conferences: {error}</div>
+        ) : conferences.length === 0 ? (
+          <div className="rounded-[2rem] border border-slate-800 bg-slate-950/90 p-8 text-slate-400">No conferences have been published yet.</div>
         ) : (
           <div className="grid gap-8 lg:grid-cols-3">
             {conferences.map((conference) => (

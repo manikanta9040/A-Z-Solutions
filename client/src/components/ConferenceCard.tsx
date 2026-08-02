@@ -15,7 +15,7 @@ const ConferenceCard = ({ conference }: ConferenceCardProps) => (
     className="group overflow-hidden rounded-[2rem] border border-slate-800 bg-slate-950/90 shadow-card"
   >
     <div className="relative h-56 overflow-hidden">
-      <img src={conference.image} alt={conference.title} className="h-full w-full object-cover transition duration-500 group-hover:scale-105" />
+      <img src={conference.image || 'https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&w=1200&q=80'} alt={conference.title} className="h-full w-full object-cover transition duration-500 group-hover:scale-105" />
       <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/20 to-transparent" />
       <div className="absolute left-5 top-5 rounded-full bg-gold/90 px-3 py-1 text-xs font-semibold uppercase tracking-[0.3em] text-slate-950">
         {conference.category}

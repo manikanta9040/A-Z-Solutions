@@ -78,6 +78,6 @@ CREATE TABLE IF NOT EXISTS contacts (
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
-INSERT INTO users (name, email, password_hash, role) VALUES (
-  ('Admin User', 'admin@summitsphere.com', '$2a$10$3fB5fJtP2gM9B7W1fT7cV.6l0E2Y3d5e8j1K4qN2yQGxC8p9wVn2W', 'admin')
-) ON DUPLICATE KEY UPDATE email = email;
+INSERT INTO users (name, email, password_hash, role) VALUES
+  ('Admin User', 'admin@summitsphere.com', '$2a$10$krB6Y/TDIuCkWayxnxNLYO5R/2ERy0cid69j93zBFNSxDnFKweDMG', 'admin')
+ON DUPLICATE KEY UPDATE name = VALUES(name), password_hash = VALUES(password_hash), role = VALUES(role);

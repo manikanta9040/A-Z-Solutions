@@ -6,11 +6,11 @@ export interface Conference {
   date: string;
   location: string;
   description: string;
-  image: string;
+  image?: string;
   featured: boolean;
   registrationDeadline?: string;
   price?: string;
-  status?: 'upcoming' | 'past' | 'featured';
+  status?: string;
 }
 
 export interface Speaker {

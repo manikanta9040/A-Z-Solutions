@@ -1,41 +1,40 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { api } from '../services/api'
 
 type ConferenceItem = {
   id: number
   title: string
+  slug: string
   location: string
   category: string
   date: string
   description: string
+  featured?: boolean
+  status?: string
 }
 
-const initialConferences: ConferenceItem[] = [
-  {
-    id: 1,
-    title: 'Global AI Summit 2026',
-    location: 'Singapore',
-    category: 'AI',
-    date: '2026-09-18',
-    description: 'Premium event for applied AI leaders and research teams.',
-  },
-  {
-    id: 2,
-    title: 'Precision Healthcare Forum',
-    location: 'Zurich',
-    category: 'Healthcare',
-    date: '2026-10-02',
-    description: 'A multidisciplinary forum for healthcare innovation leaders.',
-  },
-]
+const createSlug = (value: string) => value.toLowerCase().trim().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '')
 
 const AdminConferences = () => {
-  const [conferences, setConferences] = useState(initialConferences)
+  const [conferences, setConferences] = useState<ConferenceItem[]>([])
   const [title, setTitle] = useState('')
   const [location, setLocation] = useState('')
   const [category, setCategory] = useState('')
   const [date, setDate] = useState('')
   const [description, setDescription] = useState('')
   const [editingId, setEditingId] = useState<number | null>(null)
+  const [error, setError] = useState<string | null>(null)
+  const [saving, setSaving] = useState(false)
+
+  const loadConferences = async () => {
+    try {
+      setConferences(await api.get<ConferenceItem[]>('/conferences'))
+    } catch (requestError) {
+      setError(requestError instanceof Error ? requestError.message : 'Unable to load conferences')
+    }
+  }
+
+  useEffect(() => { void loadConferences() }, [])
 
   const resetForm = () => {
     setTitle('')
@@ -46,16 +45,29 @@ const AdminConferences = () => {
     setEditingId(null)
   }
 
-  const addConference = () => {
-    if (!title || !location || !category || !date || !description) return
-
-    if (editingId) {
-      setConferences((prev) => prev.map((item) => item.id === editingId ? { ...item, title, location, category, date, description } : item))
-    } else {
-      setConferences((prev) => [...prev, { id: Date.now(), title, location, category, date, description }])
+  const saveConference = async () => {
+    if (!title || !location || !category || !date || !description) {
+      setError('Complete every field before saving.')
+      return
     }
 
-    resetForm()
+    setSaving(true)
+    setError(null)
+    const payload = { title, slug: createSlug(title), location, category, date, description, featured: false, status: 'upcoming' }
+
+    try {
+      if (editingId) {
+        await api.put(`/conferences/${editingId}`, payload)
+      } else {
+        await api.post('/conferences', payload)
+      }
+      await loadConferences()
+      resetForm()
+    } catch (requestError) {
+      setError(requestError instanceof Error ? requestError.message : 'Unable to save conference')
+    } finally {
+      setSaving(false)
+    }
   }
 
   const editConference = (item: ConferenceItem) => {
@@ -65,10 +77,17 @@ const AdminConferences = () => {
     setCategory(item.category)
     setDate(item.date)
     setDescription(item.description)
+    setError(null)
   }
 
-  const removeConference = (id: number) => {
-    setConferences((prev) => prev.filter((item) => item.id !== id))
+  const removeConference = async (id: number) => {
+    setError(null)
+    try {
+      await api.delete(`/conferences/${id}`)
+      await loadConferences()
+    } catch (requestError) {
+      setError(requestError instanceof Error ? requestError.message : 'Unable to delete conference')
+    }
   }
 
   return (
@@ -84,6 +103,8 @@ const AdminConferences = () => {
           </button>
         </div>
 
+        {error && <p className="mb-6 rounded-2xl border border-red-500/50 bg-red-500/10 px-4 py-3 text-sm text-red-200">{error}</p>}
+
         <div className="mb-8 space-y-4 rounded-[2rem] border border-slate-800 bg-slate-950/90 p-6">
           <div className="grid gap-4 md:grid-cols-2">
             <input value={title} onChange={(event) => setTitle(event.target.value)} placeholder="Conference title" className="rounded-2xl border border-slate-800 bg-slate-900/80 px-4 py-3 outline-none" />
@@ -92,8 +113,8 @@ const AdminConferences = () => {
             <input value={date} onChange={(event) => setDate(event.target.value)} type="date" className="rounded-2xl border border-slate-800 bg-slate-900/80 px-4 py-3 outline-none" />
           </div>
           <textarea value={description} onChange={(event) => setDescription(event.target.value)} placeholder="Conference description" rows={4} className="w-full rounded-2xl border border-slate-800 bg-slate-900/80 px-4 py-3 outline-none" />
-          <button onClick={addConference} className="rounded-2xl bg-gold px-5 py-3 font-semibold text-slate-950 transition hover:bg-[#dba11a]">
-            {editingId ? 'Update Conference' : 'Add Conference'}
+          <button disabled={saving} onClick={saveConference} className="rounded-2xl bg-gold px-5 py-3 font-semibold text-slate-950 transition hover:bg-[#dba11a] disabled:cursor-not-allowed disabled:opacity-60">
+            {saving ? 'Saving...' : editingId ? 'Update Conference' : 'Add Conference'}
           </button>
         </div>
 
@@ -107,7 +128,7 @@ const AdminConferences = () => {
               </div>
               <div className="flex flex-wrap gap-3">
                 <button onClick={() => editConference(item)} className="rounded-full border border-slate-700 px-4 py-2 text-sm text-slate-300 transition hover:border-gold hover:text-gold">Edit</button>
-                <button onClick={() => removeConference(item.id)} className="rounded-full border border-slate-700 px-4 py-2 text-sm text-slate-300 transition hover:border-red-500 hover:text-red-400">Remove</button>
+                <button onClick={() => void removeConference(item.id)} className="rounded-full border border-slate-700 px-4 py-2 text-sm text-slate-300 transition hover:border-red-500 hover:text-red-400">Remove</button>
               </div>
             </div>
           ))}
